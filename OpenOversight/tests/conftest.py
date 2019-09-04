@@ -375,7 +375,7 @@ def mockdata(session):
             department_id=2,
             address=test_addresses[1],
             license_plates=[test_license_plates[0]],
-            links=test_links,
+            links=test_incident_links,
             officers=[all_officers[o] for o in range(1)],
             creator_id=2,
             last_updated_id=1

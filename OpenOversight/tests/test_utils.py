@@ -38,6 +38,8 @@ def test_gender_filter_select_all_male_or_not_sure_officers(mockdata):
     )
 
     result_genders = [officer.gender for officer in results.all()]
+    # TODO: insert officer data that has null gender. this test will fail since 
+    # filter by form now ignores Not Sure values
     for element in results.all():
         assert element.gender in ('M', 'Not Sure')
     for gender in  ('M', 'Not Sure'):

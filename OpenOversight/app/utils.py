@@ -15,7 +15,7 @@ import random
 import sys
 from traceback import format_exc
 
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.sql.expression import cast
 import imghdr as imghdr
 from flask import current_app, url_for
@@ -301,8 +301,7 @@ def filter_by_form(form, officer_query, department_id=None):
     gender_values = [x for x, _ in GENDER_CHOICES]
     if form.get('gender') and all(gender in gender_values for gender in form['gender']):
         if 'Not Sure' not in form['gender']:
-            genders = form['gender'] + ['Not Sure']
-            officer_query = officer_query.filter(Officer.gender.in_(genders))
+            officer_query = officer_query.filter(or_(Officer.gender.in_(form['gender']), Officer.gender.is_(None)))
 
     if form.get('min_age') and form.get('max_age'):
         current_year = datetime.datetime.now().year
